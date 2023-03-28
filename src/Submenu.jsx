@@ -1,4 +1,4 @@
-import { useGlobalContext } from './Context';
+import { useGlobalContext } from './context';
 import sublinks from './data';
 import { useRef } from 'react';
 const Submenu = () => {

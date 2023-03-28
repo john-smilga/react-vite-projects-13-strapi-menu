@@ -1,5 +1,5 @@
 import { FaBars } from 'react-icons/fa';
-import { useGlobalContext } from './Context';
+import { useGlobalContext } from './context';
 import NavLinks from './NavLinks';
 const Navbar = () => {
   const { openSidebar, setPageId } = useGlobalContext();
