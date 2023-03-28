@@ -1,35 +1,26 @@
-import { useRef } from 'react';
-import { useGlobalContext } from './context';
+import { useGlobalContext } from './Context';
 import sublinks from './data';
+import { useRef } from 'react';
 const Submenu = () => {
   const { pageId, setPageId } = useGlobalContext();
-  const submenuContainer = useRef(null);
   const currentPage = sublinks.find((item) => item.pageId === pageId);
+
+  const submenuContainer = useRef(null);
 
   const handleMouseLeave = (event) => {
     const submenu = submenuContainer.current;
     const { left, right, bottom } = submenu.getBoundingClientRect();
     const { clientX, clientY } = event;
 
-    // Check if the mouse is outside the modal
-    if (clientX < left || clientX > right || clientY > bottom) {
-      // Do something here, such as closing the modal
+    if (clientX < left - 1 || clientX > right - 1 || clientY > bottom - 1) {
       setPageId(null);
     }
   };
-  // const handleMouseOver = (event) => {
-  //   const submenu = submenuContainer.current;
-  //   const { left, right, bottom } = submenu.getBoundingClientRect();
-  //   const { clientX, clientY } = event;
-  //   console.log(left, right, bottom);
-  //   console.log(clientX, clientY);
-  // };
   return (
     <div
-      ref={submenuContainer}
       className={currentPage ? 'submenu show-submenu' : 'submenu'}
       onMouseLeave={handleMouseLeave}
-      // onMouseOver={handleMouseOver}
+      ref={submenuContainer}
     >
       <h5>{currentPage?.page}</h5>
       <div
@@ -41,7 +32,6 @@ const Submenu = () => {
       >
         {currentPage?.links?.map((link) => {
           const { id, url, label, icon } = link;
-
           return (
             <a key={id} href={url}>
               {icon}
